@@ -1,14 +1,22 @@
 package ch02.n9;
 
 public class Car {
-    private double coordinate = 0;
+    private double x;
+    private double y;
+
+    public double getY() {
+        return y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
     private double gasInTank;
     private final double gallonsPerMile;//gallons per mile
     private final double TankCapacity;
-
-    public double getCoordinate() {
-        return coordinate;
-    }
+    private final double xBoundary;
+    private final double yBoundary;
 
     public double getGallonsPerMile() {
         return gallonsPerMile;
@@ -22,7 +30,11 @@ public class Car {
         return TankCapacity;
     }
 
-    public Car(double gasInTank, double fuelEfficiency, double tankCapacity) {
+    public Car(double gasInTank, double fuelEfficiency, double tankCapacity, double xBoundary, double yBoundary) {
+        this.xBoundary = xBoundary;
+        this.yBoundary = yBoundary;
+        this.x = xBoundary/2;
+        this.y = yBoundary/2;
         if (gasInTank < 0 || fuelEfficiency < 0 || tankCapacity < 0 )
             throw new IllegalArgumentException("cant take or process negative parameters");
         this.gasInTank = gasInTank;
@@ -30,26 +42,39 @@ public class Car {
         this.TankCapacity = tankCapacity;
     }
     private boolean checkEnoughFuel(double gallons){
-        if(gasInTank >= gallons)
-            return true;
-        else
-            return false;
+        return gasInTank >= gallons;
     }
-    public void DriveByNumberOfMiles(double miles){
-        if(miles < 0)
-        {
-            throw new IllegalArgumentException("can not drive negative number of miles");
-        }
-        double EstimateOfFuelConsumed = miles*gallonsPerMile;
+
+    public void DriveByNumberOfMilesX(double miles){
+        if(x + miles > xBoundary || x +miles <0){
+            return;
+            }
+        double EstimateOfFuelConsumed = Math.abs(miles*gallonsPerMile);
         if(checkEnoughFuel(EstimateOfFuelConsumed)) {
             gasInTank -= EstimateOfFuelConsumed;
-            coordinate += miles;
+            x += miles;
         }
         else {
             gasInTank = 0;
-            coordinate += (gasInTank/gallonsPerMile);
+            x += (gasInTank/gallonsPerMile);
         }
     }
+
+    public void DriveByNumberOfMilesY(double miles){
+        if(y + miles > xBoundary || y + miles <0){
+            return;
+        }
+        double EstimateOfFuelConsumed = Math.abs(miles*gallonsPerMile);
+        if(checkEnoughFuel(EstimateOfFuelConsumed)) {
+            gasInTank -= EstimateOfFuelConsumed;
+            y += miles;
+        }
+        else {
+            gasInTank = 0;
+            y += (gasInTank/gallonsPerMile);
+        }
+    }
+
     public void addFuel(double gallons){
         if (gallons + gasInTank > TankCapacity){
             throw new RuntimeException("exceeding tank capacity");

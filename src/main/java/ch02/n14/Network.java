@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Network {
     public class Member { // Member is an inner class of Network
-        private String name;
-        private ArrayList<Member> friends = new ArrayList<>();
+        private final String name;
+        private final ArrayList<Member> friends = new ArrayList<>();
 
         public Member(String name) {
             this.name = name;
@@ -34,7 +34,7 @@ public class Network {
         }
     }
 
-    private ArrayList<Member> members = new ArrayList<>();
+    private final ArrayList<Member> members = new ArrayList<>();
 
     public Member enroll(String name) {
         Member newMember = new Member(name);

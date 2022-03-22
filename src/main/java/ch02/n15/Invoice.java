@@ -1,8 +1,12 @@
 package ch02.n15;
 
+import javax.imageio.IIOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
-public class Invoice {
+public class Invoice implements Serializable {
     private static class Item { // Item is nested inside Invoice
         String description;
         int quantity;
@@ -13,8 +17,26 @@ public class Invoice {
             return quantity + " x " + description + " @ $" + unitPrice + " each";
         }
     }
+    private void readObject(java.io.ObjectInputStream stream)
+            throws IOException, ClassNotFoundException{}
 
-    private ArrayList<Item> items = new ArrayList<>();
+
+
+    private void writeObject(java.io.ObjectOutputStream stream)
+            throws IOException{
+        double total = 0;
+        for (Item item : items) {
+            stream.write((item.toString() + "\n").getBytes());
+            total += item.price();
+        }
+        stream.write((total + "\n").getBytes());
+    }
+    private void readObjectNoData()
+            throws ObjectStreamException {}
+
+
+
+    private final ArrayList<Item> items = new ArrayList<>();
 
     public void addItem(String description, int quantity, double unitPrice) {
         Item newItem = new Item();
@@ -31,5 +53,14 @@ public class Invoice {
             total += item.price();
         }
         System.out.println(total);
+    }
+
+    public void print(OutputStream stream) throws IOException {
+        double total = 0;
+        for (Item item : items) {
+            stream.write((item.toString() + "\n").getBytes());
+            total += item.price();
+        }
+        stream.write((total + "\n").getBytes());
     }
 }

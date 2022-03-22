@@ -7,7 +7,7 @@ public class Queue {
     private Node last = null;
     private int size = 0;
 
-    private class Node {
+    private static class Node {
         private final String string;
         private Node next;
         public String getString() {
@@ -58,9 +58,7 @@ public class Queue {
             current = node;
         }
         public boolean hasNext(){
-            if(current.next != null)
-                return true;
-            else return false;
+            return current.next != null;
         }
         public Node next(){
             return current.next;
