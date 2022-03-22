@@ -31,9 +31,9 @@ public class Point {
      * getter for x field
      * @return double value of x coordinate
      */
-    public void getX()   {
-        Какая-тоФункция(x);
-        Какая-тоФункция(y);
+    public double getX()   {
+        return x;
+
     }
     /**
      * getter for y field
@@ -41,6 +41,14 @@ public class Point {
      */
     public double getY() {
         return y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 
     /**
