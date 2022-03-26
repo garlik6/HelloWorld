@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Invoice implements Serializable {
-    private static class Item { // Item is nested inside Invoice
+    private static class Item implements Serializable{ // Item is nested inside Invoice
         String description;
         int quantity;
         double unitPrice;
@@ -17,22 +17,6 @@ public class Invoice implements Serializable {
             return quantity + " x " + description + " @ $" + unitPrice + " each";
         }
     }
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException{}
-
-
-
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws IOException{
-        double total = 0;
-        for (Item item : items) {
-            stream.write((item.toString() + "\n").getBytes());
-            total += item.price();
-        }
-        stream.write((total + "\n").getBytes());
-    }
-    private void readObjectNoData()
-            throws ObjectStreamException {}
 
 
 
@@ -46,13 +30,8 @@ public class Invoice implements Serializable {
         items.add(newItem);
     }
 
-    public void print() {
-        double total = 0;
-        for (Item item : items) {
-            System.out.println(item);
-            total += item.price();
-        }
-        System.out.println(total);
+    public void print() throws IOException {
+        print(System.out);
     }
 
     public void print(OutputStream stream) throws IOException {
@@ -62,5 +41,10 @@ public class Invoice implements Serializable {
             total += item.price();
         }
         stream.write((total + "\n").getBytes());
+    }
+
+    public void print(ObjectOutputStream oos) throws IOException {
+
+        oos.writeObject(this);
     }
 }

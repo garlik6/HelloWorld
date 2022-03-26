@@ -1,0 +1,8 @@
+2 x a @ $1.0 each
+1 x b @ $2.0 each
+1 x c @ $3.0 each
+7.0
+2 x a @ $1.0 each
+1 x b @ $2.0 each
+1 x c @ $3.0 each
+7.0

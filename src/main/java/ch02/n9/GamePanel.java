@@ -1,24 +1,22 @@
 package ch02.n9;
-
-import ch02.n9.inputs.KeyboardInputs;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 
 public class GamePanel extends JPanel {
     private final int height;
     private final int width;
+    private int x;
+    private int y;
+    private final JLabel topLabel;
 
-    public Car getCar() {
-        return car;
-    }
-
-    private final Car car;
     @Override
     public int getHeight() {
         return height;
+    }
+
+    public void setTopLabelText(String text) {
+        topLabel.setText("Fuel = " + text);
     }
 
     @Override
@@ -26,15 +24,27 @@ public class GamePanel extends JPanel {
         return width;
     }
 
-    public GamePanel(int width , int height) {
+    public GamePanel(int width , int height, int x, int y) {
+        this.y = y;
+        this.x = x;
         this.width = width;
         this.height = height;
-        car = new Car(1000, 0.2,1000, width, height);
-        addKeyListener(new KeyboardInputs(this));
+        topLabel = new JLabel("Top");
+        topLabel.setVerticalAlignment(JLabel.TOP);
+        topLabel.setHorizontalAlignment(JLabel.CENTER);
+        topLabel.setForeground(Color.GREEN);
+        this.add(topLabel);
     }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public void paintComponent(Graphics g){
-//        super.paintComponent(g);
-//        Car car = new Car(100, 0.5,100, width, height);
-        g.fillRoundRect((int) Math.round(car.getX()), (int) Math.round(car.getY()),10,10,1,1);
+        g.fillRoundRect(x, y,10,10,1,1);
     }
 }

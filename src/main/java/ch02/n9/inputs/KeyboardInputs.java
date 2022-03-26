@@ -1,12 +1,13 @@
 package ch02.n9.inputs;
 
 import ch02.n9.Car;
+import ch02.n9.Game;
 import ch02.n9.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public record KeyboardInputs(GamePanel gamePanel) implements KeyListener {
+public record KeyboardInputs(GamePanel gamePanel, Game game) implements KeyListener {
     private static final int increment = 5;
 
     @Override
@@ -16,27 +17,23 @@ public record KeyboardInputs(GamePanel gamePanel) implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        Car car = gamePanel.getCar();
+
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W -> {
                 System.out.println("It is W");
-                car.DriveByNumberOfMilesY(-increment);
-                gamePanel.paintComponent(gamePanel.getGraphics());
+                game.DriveByNumberOfMilesY(-increment);
             }
             case KeyEvent.VK_A -> {
-                car.DriveByNumberOfMilesX(-increment);
+                game.DriveByNumberOfMilesX(-increment);
                 System.out.println("It is A");
-                gamePanel.paintComponent(gamePanel.getGraphics());
             }
             case KeyEvent.VK_S -> {
-                car.DriveByNumberOfMilesY(increment);
+                game.DriveByNumberOfMilesY(increment);
                 System.out.println("It is S");
-                gamePanel.paintComponent(gamePanel.getGraphics());
             }
             case KeyEvent.VK_D -> {
-                car.DriveByNumberOfMilesX(increment);
+                game.DriveByNumberOfMilesX(increment);
                 System.out.println("It is D");
-                gamePanel.paintComponent(gamePanel.getGraphics());
             }
         }
     }
