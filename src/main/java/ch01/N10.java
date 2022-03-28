@@ -1,4 +1,4 @@
-package ch01.exer;
+package ch01;
 import java.util.random.RandomGenerator;
 public class N10 {
     public static void main(String[] args) {

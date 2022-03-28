@@ -1,4 +1,4 @@
-package ch01.exer;
+package ch01;
 
 public class N5 {
     public static void main(String[] args) {

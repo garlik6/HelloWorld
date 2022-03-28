@@ -1,4 +1,4 @@
-package ch01.exer;
+package ch01;
 
 import java.util.Scanner;
 

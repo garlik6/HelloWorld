@@ -1,6 +1,4 @@
 package ch02.n9.inputs;
-
-import ch02.n9.Car;
 import ch02.n9.Game;
 import ch02.n9.GamePanel;
 

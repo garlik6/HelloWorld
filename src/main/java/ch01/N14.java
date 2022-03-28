@@ -1,4 +1,4 @@
-package ch01.exer;
+package ch01;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -55,9 +55,8 @@ public class N14 {
 
     public static void printSquare(ArrayList<ArrayList<Integer>> square)
     {
-        for (int i = 0; i < square.size();i++)
-        {
-            System.out.println(square.get(i).toString());
+        for (ArrayList<Integer> arrayList : square) {
+            System.out.println(arrayList.toString());
         }
     }
     public static boolean checkForMagic(ArrayList<ArrayList<Integer>> square)

@@ -61,7 +61,7 @@ public class Car {
     }
 
     public void DriveByNumberOfMilesY(double miles){
-        if(y + miles > xBoundary || y + miles <0){
+        if(y + miles > yBoundary || y + miles <0){
             return;
         }
         double EstimateOfFuelConsumed = Math.abs(miles*gallonsPerMile);
