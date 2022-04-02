@@ -21,7 +21,7 @@ public class N3 {
             else
                 System.out.println(num2);
 
-            System.out.println(Math.max(num1,Math.max(num2,num3)));
+            System.out.println(Math.max(num2,num3));
         }
     }
 

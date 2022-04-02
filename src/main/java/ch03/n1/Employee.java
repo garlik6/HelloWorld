@@ -1,7 +1,7 @@
 package ch03.n1;
 
 public class Employee implements Person, Identified, Measurable {
-    private String name;
+    private final String name;
     private double salary;
 
     public Employee(String name, double salary) {
@@ -22,7 +22,9 @@ public class Employee implements Person, Identified, Measurable {
         return salary;
     }
 
-    public int getId() { return Identified.super.getId(); }
+    public int getId() {
+        return Identified.super.getId();
+    }
 
     @Override
     public double getMeasure() {

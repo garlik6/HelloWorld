@@ -1,7 +1,6 @@
 package ch02.n15;
 
 import java.io.*;
-import java.util.stream.Stream;
 
 public class N15 {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -33,7 +32,7 @@ public class N15 {
         FileInputStream fis = new FileInputStream("file.out");
         ObjectInputStream oin = new ObjectInputStream(fis);
         invoice =  (Invoice) oin.readObject();
-        System.out.println("from objectstream:");
+        System.out.println("from object stream:");
         invoice.print();
     }
 }

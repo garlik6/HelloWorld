@@ -2,7 +2,6 @@ package ch02.n2;
 
 import java.util.Random;
 import java.util.Scanner;
-import java.util.random.RandomGenerator;
 
 public class N2 {
 

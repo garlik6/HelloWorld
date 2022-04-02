@@ -1,7 +1,5 @@
 package ch02.n1617;
 
-import java.util.LinkedList;
-
 public class Queue {
     private Node head = null;
     private Node last = null;

@@ -2,7 +2,7 @@ package ch03.n1;
 import java.util.Random;
 public class N1 {
     public static void main(String[] args) {
-        Employee array[] = new Employee[10];
+        Employee[] array = new Employee[10];
         Random generator = new Random();
         for (int i = 0; i < array.length; i++) {
             array[i] = new Employee(Integer.toHexString(i*generator.nextInt(100, 1000)), 100);

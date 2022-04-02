@@ -1,10 +1,7 @@
 package ch02.n15;
 
-import javax.imageio.IIOException;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class Invoice implements Serializable {
     private static class Item implements Serializable{ // Item is nested inside Invoice

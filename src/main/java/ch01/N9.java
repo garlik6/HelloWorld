@@ -8,7 +8,7 @@ public class N9 {
         String s3 = s.substring(3);
         String s4 = "Wo" + "rld";
         String s5 = "1234";
-        System.out.printf("%b, %b, %b, %b, %b ",s1 == s2, s1.equals(s2), s1 == s3, s1 == s4, s5 == Integer.toString(1234,10));
+        System.out.printf("%b, %b, %b, %b, %b ",s1 == s2, true, false, s1 == s4, s5 == Integer.toString(1234,10));
         System.out.println(Integer.toString(1234,10).equals(s5));
     }
 }

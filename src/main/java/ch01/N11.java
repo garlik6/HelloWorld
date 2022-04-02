@@ -1,10 +1,10 @@
 package ch01;
 
 public class N11 {
-    public static boolean isASCII (int symbol){
+    public static boolean isASCII(int symbol) {
         return (symbol <= 127);
     }
-    
+
     public static void main(String[] args) {
 
         String str = "☢⚒☢⚒☢1HeLLo1WoRLd1☢⚒☢⚒☢";

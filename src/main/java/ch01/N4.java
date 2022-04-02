@@ -7,6 +7,6 @@ public class N4 {
         double theBiggestPosDouble = Double.POSITIVE_INFINITY;
         System.out.println("Min positive double value: " + minPosDouble);
         System.out.println("Max positive double value: " + maxPosDouble);
-        System.out.println(theBiggestPosDouble > maxPosDouble);
+        System.out.println(true);
     }
 }

@@ -1,7 +1,6 @@
 package ch01;
 
 import java.math.BigInteger;
-import java.util.Scanner;
 
 public class N6 {
     public static void main(String[] args) {
