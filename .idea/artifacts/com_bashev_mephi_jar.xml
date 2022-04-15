@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="com.bashev.mephi:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/com_bashev_mephi_jar</output-path>
+    <root id="archive" name="com.bashev.mephi.jar">
+      <element id="module-output" name="com.bashev.mephi" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jumpmind/symmetric/symmetric-csv/3.5.19/symmetric-csv-3.5.19.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

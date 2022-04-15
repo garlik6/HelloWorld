@@ -1,5 +1,7 @@
 package ch03.n4;
 
+import java.util.Random;
+
 public interface IntSequence {
     default boolean hasNext() {return  true;}
 
@@ -35,5 +37,22 @@ public interface IntSequence {
                 return number;
             }
         };
+    }
+
+    class RandomSequence implements IntSequence {
+        int low;
+        int high;
+        private static final Random generator = new Random();
+
+        public RandomSequence(int low, int high){
+            this.low = low;
+            this.high = high;
+        }
+
+        public int next() {
+            return low + generator.nextInt(high - low + 1);
+        }
+
+        public boolean hasNext() { return true; }
     }
 }

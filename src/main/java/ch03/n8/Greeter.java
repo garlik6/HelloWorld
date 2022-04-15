@@ -1,8 +1,8 @@
 package ch03.n8;
 
 public class Greeter implements Runnable {
-    private int n;
-    private String target;
+    private final int n;
+    private final String target;
 
     public Greeter(int n, String target){
         this.n = n;

@@ -32,6 +32,13 @@ public class Employee implements Person, Identified, Measurable {
     }
 
 
+    @Override
+    public String toString() {
+        return
+                "\n" + "(" + name + " , " +
+                 Math.round(salary) +
+                ')' ;
+    }
 }
 
 
