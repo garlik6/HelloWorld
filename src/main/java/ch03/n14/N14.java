@@ -23,7 +23,8 @@ public class N14 {
         Arrays.sort(array,comp);
         System.out.println(Arrays.toString(array));
 
-        comp = Comparator.comparing(Employee::getName).thenComparing(Employee::getSalary);
+//        comp = Comparator.comparing(Employee::getName).thenComparing(Employee::getSalary);
+        comp.reversed();
         Arrays.sort(array,comp);
         System.out.println(Arrays.toString(array));
 

@@ -20,8 +20,8 @@ public class Greeter implements Runnable {
     public static void runInOrder(Runnable... tasks){
         for (Runnable task:tasks
         ) {
-            Thread thread = new Thread(task);
-            thread.run();
+
+            task.run();
         }
     }
 
