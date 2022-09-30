@@ -8,34 +8,47 @@ import java.util.Set;
 public class N9 {
 
     public static void main(String[] args) {
-        Class2 class2 = new Class2();
-        Class1 class1 = new Class1("3", class2);
-        class2.setA(class1);
-
+        B class2 = new B();
+        A class1 = new A("3", class2);
+        C class3 = new C();
+        class3.setA(class1);
+        class2.setC(class3);
         System.out.println(toString(class1));
     }
-    private static final Set<Class<?>> BOX_TYPES;
+    private static final Set<Class<?>> SPECIAL_TYPES;
 
     static {
-        BOX_TYPES = new HashSet<>();
-        BOX_TYPES.add(Boolean.class);
-        BOX_TYPES.add(Character.class);
-        BOX_TYPES.add(Byte.class);
-        BOX_TYPES.add(Short.class);
-        BOX_TYPES.add(Integer.class);
-        BOX_TYPES.add(Long.class);
-        BOX_TYPES.add(Float.class);
-        BOX_TYPES.add(Double.class);
-        BOX_TYPES.add(Void.class);
+        SPECIAL_TYPES = new HashSet<>();
+        SPECIAL_TYPES.add(Boolean.class);
+        SPECIAL_TYPES.add(Character.class);
+        SPECIAL_TYPES.add(Byte.class);
+        SPECIAL_TYPES.add(Short.class);
+        SPECIAL_TYPES.add(Integer.class);
+        SPECIAL_TYPES.add(Long.class);
+        SPECIAL_TYPES.add(Float.class);
+        SPECIAL_TYPES.add(Double.class);
+        SPECIAL_TYPES.add(Void.class);
+        SPECIAL_TYPES.add(String.class);
     }
 
     public static boolean isBoxType(Class<?> clazz) {
-        return BOX_TYPES.contains(clazz);
+        return SPECIAL_TYPES.contains(clazz);
     }
 
-
-    public static String toString(Object object) {
-
+    public static String toString(Object object)
+    {
+        return toStringg(object, new HashSet<>());
+    }
+    public static String toStringg(Object object, Set<Integer> IDs) {
+        int id = System.identityHashCode(object);
+        if(id == 0)
+            return "access denied";
+        if(IDs.contains(id))
+            return "cyclic reference to @" + id;
+        else
+            IDs.add(id);
+        if (object == null)
+            return "";
         StringBuilder sb = new StringBuilder(object.getClass().getSimpleName()).append("={");
         String className = object.getClass().getSimpleName();
 
@@ -56,7 +69,7 @@ public class N9 {
                         value = f.get(object);
                     }
                     assert value != null;
-                    sb.append(f.getType().getSimpleName()).append(' ').append(f.getName()).append('=').append(toString(value));
+                    sb.append(f.getType().getSimpleName()).append(' ').append(f.getName()).append('=').append(toStringg(value, IDs));
                 }
             } catch (IllegalAccessException e) {
                 System.out.println(e.getMessage());
