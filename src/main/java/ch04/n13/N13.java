@@ -1,5 +1,4 @@
 package ch04.n13;
-
 import java.lang.reflect.Method;
 import java.util.function.DoubleFunction;
 

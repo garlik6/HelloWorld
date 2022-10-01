@@ -9,7 +9,6 @@ import java.util.Arrays;
 
 public class UniversalProxy {
 
-
     public static Object proxyLog(Object o) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         return new ByteBuddy()
                 .subclass(o.getClass())

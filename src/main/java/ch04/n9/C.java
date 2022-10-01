@@ -1,10 +1,10 @@
 package ch04.n9;
 
-public class C {
+public class C extends R {
     private double d = 111;
-    private A a;
+    private R[] a;
 
-    public void setA(A a) {
+    public void setA(R[] a) {
         this.a = a;
     }
 }

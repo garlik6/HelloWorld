@@ -1,6 +1,6 @@
 package ch04.n9;
 
-public class A {
+public class A extends R{
     String s = "1";
     private B b;
 

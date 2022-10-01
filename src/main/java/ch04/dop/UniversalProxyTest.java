@@ -12,5 +12,6 @@ class UniversalProxyTest {
         A proxy = (A) UniversalProxy.proxyLog(a);
         proxy.sum(1 ,1);
         proxy.method(1,1);
+        proxy.ExMethod(1, 2);
     }
 }

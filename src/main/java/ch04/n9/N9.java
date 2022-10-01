@@ -1,7 +1,6 @@
 package ch04.n9;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,10 +10,13 @@ public class N9 {
         B class2 = new B();
         A class1 = new A("3", class2);
         C class3 = new C();
-        class3.setA(class1);
+        D class4 = new D("DDDD", class2);
+        R[] arrayA = new R[]{class1, class1, class4};
+        class3.setA(arrayA);
         class2.setC(class3);
         System.out.println(toString(class1));
     }
+
     private static final Set<Class<?>> SPECIAL_TYPES;
 
     static {
@@ -31,19 +33,19 @@ public class N9 {
         SPECIAL_TYPES.add(String.class);
     }
 
-    public static boolean isBoxType(Class<?> clazz) {
+    public static boolean isSpecialType(Class<?> clazz) {
         return SPECIAL_TYPES.contains(clazz);
     }
 
-    public static String toString(Object object)
-    {
+    public static String toString(Object object) {
         return toStringg(object, new HashSet<>());
     }
+
     public static String toStringg(Object object, Set<Integer> IDs) {
         int id = System.identityHashCode(object);
-        if(id == 0)
+        if (id == 0)
             return "access denied";
-        if(IDs.contains(id))
+        if (IDs.contains(id))
             return "cyclic reference to @" + id;
         else
             IDs.add(id);
@@ -53,8 +55,10 @@ public class N9 {
         String className = object.getClass().getSimpleName();
 
         if (object.getClass().isArray()) {
-            sb.append(Arrays.toString((Object[]) object));
-        } else if (isBoxType(object.getClass())) {
+            for (Object o : (Object[]) object) {
+                sb.append(toStringg(o, IDs)).append(",");
+            }
+        } else if (isSpecialType(object.getClass())) {
             sb.append(object);
         } else {
             try {
