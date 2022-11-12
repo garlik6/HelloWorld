@@ -27,6 +27,12 @@ public class Point {
         this(0,0);
     }
 
+    public Point(Object[] objects) {
+        this.x = (int) objects[0];
+        this.y = (int) objects[1];
+    }
+
+
     /**
      * getter for x field
      * @return double value of x coordinate
