@@ -6,7 +6,7 @@ import java.util.List;
 
 public class N12 {
 
-    public static <T> void minMax(List<T> elements, Comparator<? super T> comp, List<? super T> result) {
+    public static <T> void minMax(List<? extends T> elements, Comparator<? super T> comp, List<? super T> result) {
         T max = elements.get(0);
         T min = elements.get(0);
         for (T t : elements) {
