@@ -1,5 +1,6 @@
 package ch6.n6;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class N6 {
@@ -9,9 +10,10 @@ public class N6 {
         return second;
     }
 
-    public static <E> List<? super E> addAllFromFirstToSecond1(List<? extends E> first, List<? super E> second) {
-        second.addAll(first);
-        return second;
+    public static <E> List<E> addAllFromFirstToSecond1(List<? extends E> first, List<E> second) {
+        ArrayList<E> arrayList = new ArrayList<>(first);
+        arrayList.addAll(second);
+        return arrayList;
     }
 
     public static void main(String[] args) {
@@ -20,6 +22,7 @@ public class N6 {
         List<Integer> integers = addAllFromFirstToSecond(first, second);
 //        List<Number> i = addAllFromFirstToSecond(first, second);
         List<Number> third = List.of(1.0,2.2,3.4,4.6);
-        List<? super Number> j = addAllFromFirstToSecond1(first, third);
+        List<Number> j = addAllFromFirstToSecond1(first, third);
     }
+
 }

@@ -11,6 +11,6 @@ public class N18 {
 
     public static void main(String[] args) {
         String[] array = repeat(1, "adsjfhakjlsfh", String[]::new);
-        Integer[] array1 = repeat(1, 1, Integer[]::new);
+        Number[] array1 = repeat(1, 1, Number[]::new);
     }
 }

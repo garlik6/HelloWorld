@@ -20,6 +20,26 @@ public class N12 {
         result.add(max);
     }
 
+    public static <T extends Comparable<? super T>> T max(List<T> arrayList) {
+        T max = arrayList.get(0);
+        for (T t : arrayList) {
+            if (t.compareTo(max) > 0) {
+                max = t;
+            }
+        }
+        return max;
+    }
+
+    public static <T extends Comparable<? super T>> T min(List<T> arrayList) {
+        T min = arrayList.get(0);
+        for (T t : arrayList) {
+            if (t.compareTo(min) < 0) {
+                min = t;
+            }
+        }
+        return min;
+    }
+
     public static <T> void maxMin(List<T> elements,
                                   Comparator<? super T> comp, List<? super T> result) {
         minMax(elements, comp, result);

@@ -3,15 +3,15 @@ package ch6.n14;
 import java.util.ArrayList;
 
 public class N14 {
-    public static <T extends AutoCloseable> void closeAll(ArrayList<T> elems)
+    public static void closeAll(ArrayList<? extends AutoCloseable> elems)
             throws Exception {
         Exception exception = null;
-        for (T elem : elems) {
+        for (AutoCloseable elem : elems) {
             try {
                 elem.close();
             } catch (Exception e) {
                 if (exception != null) {
-                    e.initCause(exception);
+                    e.addSuppressed(exception);
                 }
                 exception = e;
             }
@@ -24,7 +24,7 @@ public class N14 {
     public static void main(String[] args) throws Exception {
         AutoCloseable a = () -> {
             System.out.println("1111");
-            throw new Exception("message");
+            throw new RuntimeException("message");
         };
         ArrayList<AutoCloseable> list = new ArrayList<>();
         list.add(a);
