@@ -16,10 +16,10 @@ public class N22 {
     }
 
     public static void main(String[] args) throws Exception {
-        doWork(() -> {
-                    throw new RuntimeException("alshflsjdh");
-                },
+        doWork(
+                () -> {throw new RuntimeException("alshflsjdh");},
                 Exception::new,
-                "ldsjflsdkjflk");
+                "ldsjflsdkjflk"
+        );
     }
 }

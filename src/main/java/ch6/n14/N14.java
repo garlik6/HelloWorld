@@ -4,27 +4,31 @@ import java.util.ArrayList;
 
 public class N14 {
     public static void closeAll(ArrayList<? extends AutoCloseable> elems)
-            throws Exception {
+            throws CloseFailureException {
         Exception exception = null;
         for (AutoCloseable elem : elems) {
             try {
                 elem.close();
             } catch (Exception e) {
                 if (exception != null) {
-                    e.addSuppressed(exception);
+                    exception.addSuppressed(e);
+                } else {
+                    exception = e;
                 }
-                exception = e;
             }
         }
         if (exception != null) {
-            throw exception;
+            throw new CloseFailureException("failed to close " +
+                    (exception.getSuppressed().length + 1) +
+                    " out of " +
+                    elems.size() +
+                    " elements ", exception);
         }
     }
 
     public static void main(String[] args) throws Exception {
         AutoCloseable a = () -> {
             System.out.println("1111");
-            throw new RuntimeException("message");
         };
         ArrayList<AutoCloseable> list = new ArrayList<>();
         list.add(a);

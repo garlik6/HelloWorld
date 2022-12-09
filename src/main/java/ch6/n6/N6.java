@@ -24,5 +24,4 @@ public class N6 {
         List<Number> third = List.of(1.0,2.2,3.4,4.6);
         List<Number> j = addAllFromFirstToSecond1(first, third);
     }
-
 }
