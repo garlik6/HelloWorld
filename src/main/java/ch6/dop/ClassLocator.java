@@ -39,7 +39,7 @@ public class ClassLocator {
             }
             String className = packageName + file.getName().replace(".class", "");
             locatedClasses.add(Class.forName(className));
-            System.out.println(className);
+//            System.out.println(className);
         }
     }
 
