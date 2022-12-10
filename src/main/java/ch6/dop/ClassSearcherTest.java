@@ -46,6 +46,12 @@ class ClassSearcherTest {
         System.out.println(InjectSearcher.listClassesToInject(injectClass1, "field2"));
     }
     @Test
+    void listClassesToInject8() throws NoSuchFieldException  {
+        InjectClass2 injectClass2 = new InjectClass2();
+        System.out.println(InjectSearcher.listClassesToInject(injectClass2, "employee"));
+    }
+
+    @Test
     void listClassesToInject7() throws NoSuchFieldException {
         InjectClass1 injectClass1 = new InjectClass1();
         System.out.println(InjectSearcher.listClassesToInject(injectClass1, "field2"));

@@ -1,11 +1,15 @@
 package ch6.dop.classesToInjectTo;
 
+import ch03.n1.Employee;
+import ch03.n1.Person;
 import ch6.dop.container.Cont;
 
 public class InjectClass2 {
     Cont<? extends Number> field1;
     Cont<? super Integer> field2;
     Cont<?> field3;
+
+    Person employee;
 
     public void setField1(Cont<? extends Number> field1) {
         this.field1 = field1;
