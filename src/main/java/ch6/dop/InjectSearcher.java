@@ -1,6 +1,4 @@
 package ch6.dop;
-
-
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,8 +26,7 @@ public class InjectSearcher {
         if (type == null) {
             return toClass == null || !toClass.isPrimitive();
         }
-        // only a null type can be assigned to null type which
-        // would have cause the previous to return true
+
         if (toClass == null) {
             return false;
         }
@@ -40,7 +37,6 @@ public class InjectSearcher {
             return toClass.isAssignableFrom((Class<?>) type);
         }
         if (type instanceof ParameterizedType) {
-            // only have to compare the raw type to the class
             return isAssignable(((ParameterizedType) type).getRawType(), toClass);
         }
         throw new IllegalStateException("found an unhandled type: " + type);
@@ -48,41 +44,27 @@ public class InjectSearcher {
 
     private static boolean isAssignable(Type type, ParameterizedType toParameterizedType,
                                         Map<TypeVariable<?>, Type> typeVarAssigns) {
-        // all types are assignable to themselves
         if (toParameterizedType.equals(type)) {
             return true;
         }
-        // get the target type's raw type
         Class<?> toClass = (Class<?>) toParameterizedType.getRawType();
-        // get the subject type's type arguments
-        // and supertype arguments up to and including the target class.
         Map<TypeVariable<?>, Type> fromTypeVarAssigns = getTypeArguments(type, toClass, null);
         // null means the two types are not compatible
         if (fromTypeVarAssigns == null) {
             return false;
         }
-        // compatible types, but there's no type arguments. this is equivalent
-        // to comparing Map< ?, ? > to Map, and raw types are always assignable
-        // to parameterized types.
+
         if (fromTypeVarAssigns.isEmpty()) {
             return true;
         }
-        // get the target type's type arguments
         Map<TypeVariable<?>, Type> toTypeVarAssigns = getTypeArguments(toParameterizedType,
                 toClass, typeVarAssigns);
 
-        // now to check each type argument
         assert toTypeVarAssigns != null;
         for (TypeVariable<?> var : toTypeVarAssigns.keySet()) {
             Type toTypeArg = toTypeVarAssigns.get(var);
             Type fromTypeArg = fromTypeVarAssigns.get(var);
 
-            if (toTypeArg == null && fromTypeArg instanceof Class) {
-                continue;
-            }
-            // parameters must either be absent from the subject type, within
-            // the bounds of the wildcard type, or be an exact match to the
-            // parameters of the target type.
             if (fromTypeArg != null && toTypeArg != null
                     && !toTypeArg.equals(fromTypeArg)
                     && !(toTypeArg instanceof WildcardType && isAssignable(fromTypeArg, toTypeArg,
@@ -110,9 +92,6 @@ public class InjectSearcher {
         if (toType instanceof WildcardType) {
             return isAssignable(type, (WildcardType) toType, typeVarAssigns);
         }
-        if (toType instanceof TypeVariable<?>) {
-            return isAssignable(type, (TypeVariable<?>) toType, typeVarAssigns);
-        }
 
         throw new IllegalStateException("found an unhandled type: " + toType);
     }
@@ -123,13 +102,10 @@ public class InjectSearcher {
             return true;
         }
 
-        // only a null type can be assigned to null type which
-        // would have cause the previous to return true
         if (toWildcardType == null) {
             return false;
         }
 
-        // all types are assignable to themselves
         if (toWildcardType.equals(type)) {
             return true;
         }
@@ -153,18 +129,14 @@ public class InjectSearcher {
 
     private static Map<TypeVariable<?>, Type> getTypeArguments(Class<?> cls, Class<?> toClass,
                                                                Map<TypeVariable<?>, Type> subtypeVarAssigns) {
-        // make sure they're assignable
         if (!isAssignable(cls, toClass)) {
             return null;
         }
-        // create a copy of the incoming map, or an empty one if it's null
         HashMap<TypeVariable<?>, Type> typeVarAssigns = subtypeVarAssigns == null ? new HashMap<>()
                 : new HashMap<>(subtypeVarAssigns);
-        // has target class been reached?
         if (toClass.equals(cls)) {
             return typeVarAssigns;
         }
-        // walk the inheritance hierarchy until the target class is reached
         return getTypeArguments(getClosestParentType(cls, toClass), toClass, typeVarAssigns);
     }
 
@@ -172,18 +144,14 @@ public class InjectSearcher {
             ParameterizedType parameterizedType, Class<?> toClass,
             Map<TypeVariable<?>, Type> subtypeVarAssigns) {
         Class<?> cls = (Class<?>) parameterizedType.getRawType();
-        // make sure they're assignable
         if (!isAssignable(cls, toClass)) {
             return null;
         }
         Map<TypeVariable<?>, Type> typeVarAssigns;
         typeVarAssigns = subtypeVarAssigns == null ? new HashMap<>()
                 : new HashMap<>(subtypeVarAssigns);
-        // get the subject parameterized type's arguments
         Type[] typeArgs = parameterizedType.getActualTypeArguments();
-        // and get the corresponding type variables from the raw class
         TypeVariable<?>[] typeParams = cls.getTypeParameters();
-        // map the arguments to their respective type variables
         for (int i = 0; i < typeParams.length; i++) {
             Type typeArg = typeArgs[i];
             typeVarAssigns.put(
@@ -192,10 +160,8 @@ public class InjectSearcher {
             );
         }
         if (toClass.equals(cls)) {
-            // target class has been reached. Done.
             return typeVarAssigns;
         }
-        // walk the inheritance hierarchy until the target class is reached
         return getTypeArguments(getClosestParentType(cls, toClass), toClass, typeVarAssigns);
     }
 
@@ -211,14 +177,10 @@ public class InjectSearcher {
     }
 
     private static Type getClosestParentType(Class<?> cls, Class<?> superClass) {
-        // only look at the interfaces if the super class is also an interface
         if (superClass.isInterface()) {
-            // get the generic interfaces of the subject class
             Type[] interfaceTypes = cls.getGenericInterfaces();
-            // will hold the best generic interface match found
             Type genericInterface = null;
 
-            // find the interface closest to the super class
             for (Type midType : interfaceTypes) {
                 Class<?> midClass = null;
 
@@ -230,8 +192,6 @@ public class InjectSearcher {
                     throw new IllegalStateException("Unexpected generic"
                             + " interface type found: " + midType);
                 }
-                // check if this interface is further up the inheritance chain
-                // than the previously found match
                 boolean a1 = isAssignable(midClass, superClass);
                 boolean a2 = isAssignable(genericInterface, (Type) midClass);
                 if (isAssignable(midClass, superClass)
@@ -239,13 +199,10 @@ public class InjectSearcher {
                     genericInterface = midType;
                 }
             }
-            // found a match?
             if (genericInterface != null) {
                 return genericInterface;
             }
         }
-        // none of the interfaces were descendants of the target class, so the
-        // super class has to be one, instead
         return cls.getGenericSuperclass();
     }
 

@@ -7,13 +7,7 @@ import ch6.dop.container.Cont;
 import ch6.dop.container.StringCont;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.Arrays;
-import java.util.List;
-
 class ClassSearcherTest {
-
-
     @Test
     void listClassesToInject() throws NoSuchFieldException {
         InjectPoint injectPoint = new InjectPoint();
