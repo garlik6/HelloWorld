@@ -16,7 +16,7 @@ class ClassSearcherTest {
     @Test
     void listClassesToInject1() throws NoSuchFieldException {
         InjectClass2 injectClass2 = new InjectClass2();
-        injectClass2.setField1(new Cont<>());
+        injectClass2.setField1(new Cont<Integer>());
         System.out.println(InjectSearcher.listClassesToInject(injectClass2, "field1"));
     }
 

@@ -1,6 +1,5 @@
 package ch6.dop.classesToInjectTo;
 
-import ch03.n1.Employee;
 import ch03.n1.Person;
 import ch6.dop.container.Cont;
 
